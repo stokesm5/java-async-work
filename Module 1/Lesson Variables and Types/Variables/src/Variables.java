@@ -188,6 +188,6 @@ public class Variables{ //1. A class
         bResult = 1 <= 0; //result is false;
         bResult = 5 <= 5;  //result is true;
         bResult = 3.44 > 1.2;  //result is true;
-        bResult = -5.55 >= -5.0;  //result is false;  
+        bResult = -5.55 >= -5.0;  //result is false;
     }
 }
