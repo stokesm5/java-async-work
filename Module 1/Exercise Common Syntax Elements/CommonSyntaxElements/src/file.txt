@@ -1,0 +1,130 @@
+import java.util.Scanner;
+
+public class TicTacToe {
+
+    public static void main(String[] args) {
+
+        System.out.println("Welcome to Tic-Tac-Toe.");
+
+        do {
+            play();
+        } while (playAgain());
+
+        System.out.println("Goodbye!");
+    }
+
+    static void play() {
+
+        String playerOne = readRequiredString("Player #1, what is your name?: ");
+        String playerTwo = readRequiredString("Player #2, what is your name?: ");
+        char[] board = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        boolean playing = true;
+        boolean playerOnesTurn = Math.random() < 0.5;
+        char symbol = 'X';
+
+        System.out.println(playerOnesTurn ? playerOne : playerTwo + " goes first.");
+
+        do {
+            printBoard(board);
+            playing = move(playerOnesTurn ? playerOne : playerTwo, symbol, board);
+            playerOnesTurn = !playerOnesTurn;
+            symbol = symbol == 'X' ? 'O' : 'X';
+        } while (playing);
+
+        printBoard(board);
+    }
+
+    static void printBoard(char[] board) {
+        System.out.println("         Column");
+        System.out.println("       1   2   3");
+        System.out.println("       _   _   _");
+        System.out.printf("Row 1: %s | %s | %s%n", board[0], board[1], board[2]);
+        System.out.println("       _   _   _");
+        System.out.printf("Row 2: %s | %s | %s%n", board[3], board[4], board[5]);
+        System.out.println("       _   _   _");
+        System.out.printf("Row 3: %s | %s | %s%n", board[6], board[7], board[8]);
+    }
+
+    static boolean move(String name, char symbol, char[] board) {
+
+        System.out.println(name + ", it's your move.");
+        boolean isValid = false;
+        int row;
+        int col;
+
+        do {
+            row = selectPosition("Select a row [1-3]: ");
+            col = selectPosition("Select a column [1-3]: ");
+            if (board[row * 3 + col] != ' ') {
+                System.out.println("That position is taken. Try again.");
+            } else {
+                board[row * 3 + col] = symbol;
+                isValid = true;
+            }
+        } while (!isValid);
+
+        return !isGameOver(name, row, col, board);
+    }
+
+    static int selectPosition(String prompt) {
+
+        String value;
+        boolean isValid = false;
+        do {
+            value = readRequiredString(prompt);
+            isValid = value.length() == 1 && value.charAt(0) >= '1' && value.charAt(0) <= '3';
+            if (!isValid) {
+                System.out.println("Please choose 1-3.");
+            }
+        } while (!isValid);
+
+        return value.charAt(0) - '1';
+    }
+
+    static boolean isGameOver(String name, int row, int col, char[] board) {
+
+        char symbol = board[row * 3 + col];
+
+        if ((board[row * 3] == board[row * 3 + 1] && board[row * 3] == board[row * 3 + 2]) // check row
+                || (board[col] == board[3 + col] && board[col] == board[6 + col]) // check column
+                || (symbol == board[0] && symbol == board[4] && symbol == board[8]) // diagonal down
+                || (symbol == board[6] && symbol == board[4] && symbol == board[2]) // diagonal up
+        ) {
+            System.out.println(name + " wins!");
+            return true;
+        }
+
+        // tie?
+        boolean tie = true;
+        for (int i = 0; i < board.length; i++) {
+            tie = tie && board[i] != ' ';
+        }
+
+        if (tie) {
+            System.out.println("It's a tie.");
+            return true;
+        }
+
+        return false;
+    }
+
+    static String readRequiredString(String prompt) {
+
+        Scanner console = new Scanner(System.in);
+        String result;
+
+        do {
+            System.out.print(prompt);
+            result = console.nextLine().trim();
+            if (result.length() == 0) {
+                System.out.println("Error: value is required.");
+            }
+        } while (result.length() == 0);
+
+        return result;
+    }
+
+    static boolean playAgain() {
+        return readRequiredString("Play again? [y/n]: ").equalsIgnoreCase("y");
+    }
+}
