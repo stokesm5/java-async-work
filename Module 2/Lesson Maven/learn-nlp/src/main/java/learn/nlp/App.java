@@ -1,4 +1,4 @@
-package learn;
+package learn.nlp;
 
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
