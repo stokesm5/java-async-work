@@ -53,8 +53,8 @@ public enum Color {
             if (color.getHexValue().equalsIgnoreCase(hexValue)) {
                 return color;
             }
-            String message = String.format("No Color with hex value: %s.", hexValue);
-            throw new RuntimeException(message);
         }
+        String message = String.format("No Color with hex value: %s.", hexValue);
+        throw new RuntimeException(message);
     }
 }
