@@ -1,8 +1,8 @@
 package taskmanager.models;
 
 public enum Status {
-    TODO("To do"),
-    IN_PROGRESS("In Progress"),
+    TODO("Todo"),
+    IN_PROGRESS("In_progress"),
     COMPLETE("Completed");
 
     private String displayText;
@@ -10,4 +10,9 @@ public enum Status {
     Status(String displayText){
         this.displayText = displayText;
     }
+
+    public String getDisplayText() {
+        return displayText;
+    }
+
 }
