@@ -15,7 +15,7 @@ public class TaskFileRepository implements TaskRepository{
     private static final String DELIMITER_REPLACEMENT = "@@@";
     private final String filePath;
 
-    public TaskFileRepository(@Value("./data.tasks.csv") String filePath) {
+    public TaskFileRepository(@Value("${dataFilePath}") String filePath) {
 
         this.filePath = filePath;
     }
