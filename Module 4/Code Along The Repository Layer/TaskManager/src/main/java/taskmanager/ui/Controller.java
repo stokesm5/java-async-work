@@ -1,5 +1,6 @@
 package taskmanager.ui;
 
+import org.springframework.stereotype.Component;
 import taskmanager.data.DataAccessException;
 import taskmanager.domain.TaskResult;
 import taskmanager.domain.TaskService;
@@ -10,7 +11,7 @@ import java.util.List;
 // it mediates between the view and the domain layer
 // it has 2 dependencies view, service
 // you will NEVER use the console inside of your controller
-
+@Component
 public class Controller {
     private final View view;
     private final TaskService service;
